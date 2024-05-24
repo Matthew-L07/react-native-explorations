@@ -82,15 +82,15 @@ export const ScreenA2 = () => {
 
 export const ScreenA3 = () => {
   const [images, setImages] = useState([]);
-  const [currIndex, setCurrIndex] = useState(1);
+  const [currIndex, setCurrIndex] = useState(0);
   const ref = useRef(null);
 
   useEffect(() => {
-    unsplash.photos.list({perPage: 10}).then(result => {
+    unsplash.photos.getRandom({count: 10}).then(result => {
       if (result.errors) {
         console.error('Error fetching images:', result.errors[0]);
       } else {
-        setImages(result.response.results.map(photo => photo.urls.regular));
+        setImages(result.response.map(photo => photo.urls.regular));
       }
     });
   }, []);
@@ -118,6 +118,9 @@ export const ScreenA3 = () => {
         ref={ref}
         style={{flex: 1}}
         data={images}
+        onScrollEnd={index => {
+          setCurrIndex(index);
+        }}
         renderItem={({item, index}) => (
           <TouchableOpacity key={index} onPress={onPressNext}>
             <Image source={{uri: item}} style={styles.image} />
