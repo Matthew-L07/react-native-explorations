@@ -1,3 +1,4 @@
+import {ACCESS_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
 import {
   Button,
@@ -10,7 +11,7 @@ import {
 import {createApi} from 'unsplash-js';
 
 const unsplash = createApi({
-  accessKey: 'DSz2mZ12deBwjN_Kl3Fytl_-M96QiOjmvEjFJ7BqVkg',
+  accessKey: ACCESS_KEY,
 });
 
 export function ScreenC({navigation}) {

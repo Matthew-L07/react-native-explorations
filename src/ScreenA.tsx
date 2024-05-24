@@ -1,4 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {ACCESS_KEY} from '@env';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   Dimensions,
@@ -10,13 +11,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import type {ICarouselInstance} from 'react-native-reanimated-carousel';
 import Carousel from 'react-native-reanimated-carousel';
 import {createApi} from 'unsplash-js';
 
 const {width, height} = Dimensions.get('screen');
 
 const unsplash = createApi({
-  accessKey: 'DSz2mZ12deBwjN_Kl3Fytl_-M96QiOjmvEjFJ7BqVkg',
+  accessKey: ACCESS_KEY,
 });
 
 export function ScreenA({navigation}) {
@@ -83,7 +85,7 @@ export const ScreenA2 = () => {
 export const ScreenA3 = () => {
   const [images, setImages] = useState([]);
   const [currIndex, setCurrIndex] = useState(0);
-  const ref = useRef(null);
+  const ref = React.useRef<ICarouselInstance>(null);
 
   useEffect(() => {
     unsplash.photos.getRandom({count: 10}).then(result => {
