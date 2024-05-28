@@ -2,6 +2,7 @@ import {ACCESS_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
 import {
   Button,
+  Dimensions,
   ImageBackground,
   StyleSheet,
   Text,
@@ -13,6 +14,8 @@ import {createApi} from 'unsplash-js';
 const unsplash = createApi({
   accessKey: ACCESS_KEY,
 });
+
+const {width, height} = Dimensions.get('screen');
 
 export function ScreenB({navigation}) {
   const [backgroundImage, setBackgroundImage] = useState(null);
@@ -78,7 +81,7 @@ export const ScreenB2 = () => {
 export const ScreenB3 = () => {
   return (
     <View style={styles.body}>
-      <Text>Screen B3</Text>
+      <Text>Screen B3 </Text>
     </View>
   );
 };

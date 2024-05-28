@@ -1,4 +1,3 @@
-import {ACCESS_KEY} from '@env';
 import React, {useEffect, useState} from 'react';
 import {
   Button,
@@ -11,6 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {Calendar} from 'react-native-calendars';
+import Config from 'react-native-config';
 import type {ICarouselInstance} from 'react-native-reanimated-carousel';
 import Carousel from 'react-native-reanimated-carousel';
 import {createApi} from 'unsplash-js';
@@ -18,7 +19,7 @@ import {createApi} from 'unsplash-js';
 const {width, height} = Dimensions.get('screen');
 
 const unsplash = createApi({
-  accessKey: ACCESS_KEY,
+  accessKey: Config.ACCESS_KEY,
 });
 
 export function ScreenA({navigation}) {
@@ -76,9 +77,38 @@ export const ScreenA1 = () => {
 
 export const ScreenA2 = () => {
   return (
-    <View style={styles.body}>
-      <Text>Screen A2</Text>
-    </View>
+    <Calendar
+      style={{backgroundColor: 'black'}}
+      theme={{
+        calendarBackground: 'black',
+        dayTextColor: 'white',
+      }}
+      hideExtraDays={true}
+      dayComponent={({date, state}) => {
+        let imageSource;
+        if (date.day === 22 || date.day === 16) {
+          imageSource = require('./crying.png');
+        } else {
+          imageSource = require('./smile.png');
+        }
+        return (
+          <View style={styles.day}>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: 'white',
+              }}>
+              {date.day}
+            </Text>
+            <Image
+              resizeMode={'stretch'}
+              source={imageSource}
+              style={styles.calImage}
+            />
+          </View>
+        );
+      }}
+    />
   );
 };
 
@@ -92,12 +122,13 @@ export const ScreenA3 = () => {
       if (result.errors) {
         console.error('Error fetching images:', result.errors[0]);
       } else {
-        setImages(result.response.map(photo => photo.urls.regular));
+        const photos = result.response;
+        setImages(photos.map((photo: any) => photo.urls.regular));
       }
     });
   }, []);
 
-  const onPressGoPage = index => {
+  const onPressGoPage = (index: number) => {
     ref.current?.scrollTo({count: index - currIndex, animated: true});
     setCurrIndex(index);
   };
@@ -192,5 +223,16 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginHorizontal: 5,
+  },
+  day: {
+    width: width / 7,
+    height: height / 7,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  calImage: {
+    width: width / 8,
+    height: height / 16,
   },
 });

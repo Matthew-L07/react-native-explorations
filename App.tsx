@@ -2,9 +2,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {ScreenA, ScreenA1, ScreenA2, ScreenA3} from './ScreenA';
-import {ScreenB, ScreenB1, ScreenB2, ScreenB3} from './ScreenB';
-import {ScreenC, ScreenC1, ScreenC2, ScreenC3} from './ScreenC';
+import {ScreenA, ScreenA1, ScreenA2, ScreenA3} from './src/ScreenA';
+import {ScreenB, ScreenB1, ScreenB2, ScreenB3} from './src/ScreenB';
+import {ScreenC, ScreenC1, ScreenC2, ScreenC3} from './src/ScreenC';
 
 const Stack = createStackNavigator();
 
